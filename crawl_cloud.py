@@ -49,7 +49,7 @@ def batch_query_all(loot_map: dict):
     index = 1
     item_list = list(loot_map.items())
     for item_id, name in item_list:
-        print(f"正在查询 {index}/{total}：{name}")
+        print(f"Querying item {index}/{total}: {name}")
         min_price = query_single_min_price(item_id)
         if min_price is not None:
             priced.append((item_id, name, min_price))
@@ -75,4 +75,4 @@ if __name__ == "__main__":
     }
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(cloud_data, f, ensure_ascii=False, indent=2)
-    print(f"抓取完成，共{len(priced_list)}条有价道具，已生成price_full.json")
+    print(f"Fetch finished, total valuable items: {len(priced_list)}, price_full.json generated")
