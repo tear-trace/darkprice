@@ -1,0 +1,44 @@
+name: 每日自动抓取市场价格
+# 触发规则：定时 + 网页手动一键运行
+on:
+  schedule:
+    # cron 5位：分 时 日 月 周
+    # 北京时间早上9点 = UTC 1点，表达式 0 1 * * *
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+# 必须开启写入权限，才能自动提交文件回仓库
+permissions:
+  contents: write
+
+jobs:
+  crawl_task:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取仓库全部文件
+      - name: 检出仓库代码
+        uses: actions/checkout@v4
+
+      # 2. 安装Python3.10
+      - name: 配置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # 3. 安装爬虫依赖
+      - name: 安装依赖库
+        run: pip install -r requirements.txt
+
+      # 4. 云端运行爬虫，生成 price_full.json
+      - name: 执行价格抓取脚本
+        run: python crawl_cloud.py
+
+      # 5. 自动提交、推送更新后的JSON文件
+      - name: 自动同步价格文件
+        run: |
+          git config --local user.name "AutoCrawlBot"
+          git config --local user.email "bot@github.com"
+          git add price_full.json
+          # 无变化跳过提交，有更新则推送
+          git diff --quiet && git diff --staged --quiet || git commit -m "定时自动更新价格 $(date +%Y-%m-%d)"
+          git push

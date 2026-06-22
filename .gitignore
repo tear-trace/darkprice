@@ -1,0 +1,10 @@
+# 程序本地缓存
+price_cache.json
+__pycache__/
+*.pyc
+# 系统垃圾文件
+Thumbs.db
+.DS_Store
+# 虚拟环境（如有）
+.venv/
+venv/
