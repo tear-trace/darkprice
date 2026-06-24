@@ -18,5 +18,5 @@ android.ndk = 25
 android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
-# 强制使用本地拉取的p4a源码
-p4a.source_dir = ~/.buildozer/android/platform/python-for-android
+# 路径改为【项目本地】的p4a文件夹，不再使用家目录
+p4a.source_dir = ./.buildozer/android/platform/python-for-android
