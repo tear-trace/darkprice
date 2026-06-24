@@ -15,9 +15,7 @@ fullscreen = 0
 android.minapi = 21
 android.api = 33
 android.ndk = 25
-# 固定使用33.0.2，不会自动拉取37版产生许可冲突
 android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
-# 指定本地p4a源码路径，规避FileNotFound
 p4a.source_dir = ./.buildozer/android/platform/python-for-android

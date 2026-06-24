@@ -7,58 +7,31 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
+    container: kivy/buildozer:latest
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 缓存buildozer完整环境，复用SDK/NDK/p4a
+      # 缓存编译环境，复用SDK/NDK/p4a，大幅提速
       - name: Cache buildozer env
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-full-fix-v4
+          key: buildozer-docker-v5
 
-      # 安装系统底层依赖
-      - name: Install system packages
+      # 预先拉取python-for-android源码，消除目录找不到报错
+      - name: Pre-clone p4a source
         run: |
-          sudo apt update -y
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libsqlite3-dev bzip2 libffi-dev build-essential wget curl
+          mkdir -p ./.buildozer/android/platform
+          P4A=./.buildozer/android/platform/python-for-android
+          [ ! -d "$P4A" ] && git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
 
-      # 安装打包核心库
-      - name: Install buildozer & python-for-android
-        run: |
-          python3 -m pip install --upgrade pip setuptools wheel cython
-          pip3 install buildozer python-for-android --upgrade
-
-      # 1. 预先手动拉取p4a源码，解决目录找不到报错
-      - name: Pre clone python-for-android
-        run: |
-          P4A_PATH=./.buildozer/android/platform/python-for-android
-          mkdir -p ./buildozer/android/platform
-          if [ ! -d "$P4A_PATH" ]; then
-            git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A_PATH"
-          fi
-
-      # 2. 初始化SDK目录，强制全部许可自动同意（核心修复许可跳过问题）
-      - name: Init SDK & Accept ALL licenses non-interactive
-        run: |
-          buildozer android clean
-          # 仅初始化SDK框架，不完整编译
-          buildozer android debug || true
-          SDK_DIR=./.buildozer/android/platform/android-sdk
-          # 批量输出大量y，一次性同意所有Google SDK许可
-          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
-          # 安装指定版本build-tools、平台API
-          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
-          # 二次确认许可，防止遗漏
-          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
-
-      # 正式编译Release安装包
+      # 直接打包Release，Docker镜像预装完整SDK+已全部同意Google许可
       - name: Build Release APK
         run: buildozer android release
 
-      # 上传编译产物
-      - name: Upload APK Artifact
+      # 上传APK产物
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: DarkPrice-APK
