@@ -15,7 +15,8 @@ fullscreen = 0
 android.minapi = 21
 android.api = 33
 android.ndk = 25
-# 锁定build-tools版本，和脚本安装的33.0.2匹配
 android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
+# 强制使用本地拉取的p4a源码
+p4a.source_dir = ~/.buildozer/android/platform/python-for-android
