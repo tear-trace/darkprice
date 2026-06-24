@@ -12,23 +12,23 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 缓存编译环境，复用SDK/NDK/p4a，大幅提速
+      # 缓存编译环境，复用SDK/NDK
       - name: Cache buildozer env
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-docker-v5
+          key: buildozer-docker-rootfix-v6
 
-      # 预先拉取python-for-android源码，消除目录找不到报错
+      # 预先拉取p4a源码，消除目录找不到报错
       - name: Pre-clone p4a source
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
           [ ! -d "$P4A" ] && git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
 
-      # 直接打包Release，Docker镜像预装完整SDK+已全部同意Google许可
+      # 管道输入y自动确认root警告，解决交互式输入EOF报错
       - name: Build Release APK
-        run: buildozer android release
+        run: echo "y" | buildozer android release
 
       # 上传APK产物
       - name: Upload APK
