@@ -16,38 +16,41 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 缓存SDK、NDK、p4a源码
+      # 缓存SDK、NDK、p4a源码，复用环境
       - name: Cache buildozer env
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-full-silent-v8
+          key: buildozer-p4a-fix-v9
 
-      # 预拉取python-for-android源码
-      - name: Pre clone p4a
+      # 预拉取p4a源码 + 安装p4a全部依赖（修复appdirs缺失）
+      - name: Pre clone p4a & install dependencies
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
-          [ ! -d "$P4A" ] && git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
+          if [ ! -d "$P4A" ]; then
+            git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
+          fi
+          # 关键：进入p4a目录安装所需依赖，补齐appdirs
+          cd "$P4A"
+          pip3 install -r requirements.txt
 
-      # 全部buildozer命令统一加echo y | 自动应答root确认
-      - name: 静默清理+初始化SDK
+      # 清理 + 初始化SDK，全部管道自动应答root确认
+      - name: Silent clean & init SDK
         run: |
-          # 清理：管道自动应答root弹窗
           echo "y" | buildozer android clean
-          # 初始化SDK框架，同样自动确认root
           echo "y" | buildozer android debug || true
           SDK_DIR=$ANDROID_HOME
-          # 批量同意所有SDK许可，安装锁定版本build-tools
+          # 批量同意SDK许可，安装固定33.0.2编译工具
           yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
           yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
           yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
 
-      # 打包Release，自动应答root确认
-      - name: 编译APK
+      # 静默打包Release
+      - name: Build release APK
         run: echo "y" | buildozer android release --no-interactive
 
-      # 上传APK
+      # 上传APK工件
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
