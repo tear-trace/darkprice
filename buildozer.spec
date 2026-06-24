@@ -19,7 +19,5 @@ android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
 p4a.source_dir = ./.buildozer/android/platform/python-for-android
-
-# 新增核心静默参数，解决许可弹窗
+# 保留自动同意许可，删除错误android.sdk_path
 android.accept_sdk_license = True
-android.sdk_path = /github/home/.buildozer/android/platform/android-sdk
