@@ -1,0 +1,29 @@
+name: Build Android APK
+# 触发：推送到main分支时自动打包
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      # 1、拉取仓库全部代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2、使用官方buildozer docker镜像一键打包
+      - name: Build APK with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          workdir: .
+          # 编译release正式包，换成android debug为调试包
+          command: buildozer android release
+          buildozer_version: stable
+
+      # 3、上传生成的APK，打包完成后可在Actions页面下载
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DarkPrice-APK
+          path: bin/*.apk
