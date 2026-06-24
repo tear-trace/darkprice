@@ -11,20 +11,34 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
+      # 1. 安装全部系统底层依赖
       - name: 安装系统依赖
         run: |
           sudo apt update -y
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libsqlite3-dev bzip2 libffi-dev build-essential
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libsqlite3-dev bzip2 libffi-dev build-essential wget curl
 
-      - name: 升级pip & 安装buildozer
+      # 2. 升级pip、安装最新buildozer与pythonforandroid
+      - name: 安装Buildozer
         run: |
-          python3 -m pip install --upgrade pip setuptools wheel
-          pip3 install buildozer
+          python3 -m pip install --upgrade pip setuptools wheel cython
+          pip3 install buildozer python-for-android --upgrade
 
-      - name: 执行打包Release APK
+      # 3. 预初始化SDK，手动安装build-tools 33.0.2（解决aidl缺失）
+      - name: 初始化Android SDK并安装编译工具
+        run: |
+          buildozer android clean
+          buildozer android debug || true
+          SDK_ROOT="$HOME/.buildozer/android/platform/android-sdk"
+          echo "y" | $SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
+          echo "Accept SDK licenses"
+          echo "y" | $SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+
+      # 4. 正式打包Release APK
+      - name: 编译Release APK
         run: buildozer android release
 
-      - name: 上传APK工件
+      # 5. 上传APK到工件
+      - name: 上传APK
         uses: actions/upload-artifact@v4
         with:
           name: DarkPrice-APK
