@@ -10,20 +10,19 @@ jobs:
     container: kivy/buildozer:latest
     env:
       ANDROID_HOME: /github/home/.buildozer/android/platform/android-sdk
-      # 删除错误参数 SDKMANAGER_OPTS="--licenses=yes"
       BUILDOZER_ROOT_WARNING: "yes"
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 缓存完整编译环境
+      # 缓存编译环境
       - name: Cache buildozer env
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-fix-sdkopt-v11
+          key: buildozer-fix-thorvg-v13
 
-      # 预拉取p4a源码并安装依赖，修复appdirs缺失
+      # 预拉取p4a并安装依赖
       - name: Pre clone p4a & install dependencies
         run: |
           mkdir -p ./.buildozer/android/platform
@@ -34,17 +33,21 @@ jobs:
           cd "$P4A"
           pip3 install --no-cache-dir .
 
-      # 全部buildozer命令管道自动应答root弹窗，不再手动调用sdkmanager
-      - name: 清理并完整初始化SDK（交给buildozer自动处理许可）
+      # 彻底清理旧构建产物（关键：删除之前thorvg失败的缓存）
+      - name: Full clean build cache
         run: |
           echo "y" | buildozer android clean
-          echo "y" | buildozer android debug --no-interactive || true
+          rm -rf ./.buildozer/android/platform/build-*
 
-      # 静默打包Release
+      # 初始化SDK
+      - name: Init SDK
+        run: echo "y" | buildozer android debug --no-interactive || true
+
+      # 打包Release
       - name: Build release APK
         run: echo "y" | buildozer android release --no-interactive
 
-      # 上传APK产物
+      # 上传APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
