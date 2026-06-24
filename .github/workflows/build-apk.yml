@@ -8,30 +8,55 @@ jobs:
   build-apk:
     runs-on: ubuntu-latest
     container: kivy/buildozer:latest
+    env:
+      # 关键：全局自动同意所有SDK许可，屏蔽交互提问
+      ANDROID_HOME: /github/home/.buildozer/android/platform/android-sdk
+      SDKMANAGER_OPTS: "--licenses=yes"
+      # 跳过root警告交互确认
+      BUILDOZER_ROOT_WARNING: "yes"
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 缓存编译环境，复用SDK/NDK
-      - name: Cache buildozer env
+      # 缓存SDK、NDK、p4a，避免重复下载
+      - name: Cache buildozer environment
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-docker-rootfix-v6
+          key: buildozer-silent-fix-v7
 
-      # 预先拉取p4a源码，消除目录找不到报错
-      - name: Pre-clone p4a source
+      # 预克隆python-for-android源码，提前创建目录，消除FileNotFound
+      - name: Pre-fetch python-for-android
         run: |
           mkdir -p ./.buildozer/android/platform
-          P4A=./.buildozer/android/platform/python-for-android
-          [ ! -d "$P4A" ] && git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
+          P4A_PATH=./.buildozer/android/platform/python-for-android
+          if [ ! -d "$P4A_PATH" ]; then
+            git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A_PATH"
+          fi
 
-      # 管道输入y自动确认root警告，解决交互式输入EOF报错
-      - name: Build Release APK
-        run: echo "y" | buildozer android release
+      # 1. 静默初始化SDK，自动同意全部许可
+      - name: Init SDK silently & install fixed build-tools
+        run: |
+          # 初始化SDK框架
+          buildozer android clean
+          # 静默初始化，自动应答所有交互
+          echo "y" | buildozer android debug || true
+          SDK_DIR=$ANDROID_HOME
+          # 一次性全部同意SDK许可
+          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
+          # 强制安装锁定的33.0.2，不下载37新版
+          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33"
+          # 二次确认许可，防止遗漏
+          yes | $SDK_DIR/cmdline-tools/latest/bin/sdkmanager --licenses
 
-      # 上传APK产物
-      - name: Upload APK
+      # 2. 静默打包Release，自动应答root确认弹窗
+      - name: Silent build release APK
+        run: |
+          # 管道自动输入y，屏蔽root确认交互
+          echo "y" | buildozer android release --no-interactive
+
+      # 上传编译完成的APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: DarkPrice-APK
