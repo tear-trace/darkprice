@@ -21,9 +21,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-p4a-fix-v9
+          key: buildozer-p4a-setup-fix-v10
 
-      # 预拉取p4a源码 + 安装p4a全部依赖（修复appdirs缺失）
+      # 预拉取p4a源码 + 通过setup安装全部依赖，修复appdirs缺失、无requirements.txt报错
       - name: Pre clone p4a & install dependencies
         run: |
           mkdir -p ./.buildozer/android/platform
@@ -31,9 +31,9 @@ jobs:
           if [ ! -d "$P4A" ]; then
             git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
           fi
-          # 关键：进入p4a目录安装所需依赖，补齐appdirs
           cd "$P4A"
-          pip3 install -r requirements.txt
+          # --no-cache-dir 解决pip目录权限警告，用setup安装所有依赖
+          pip3 install --no-cache-dir .
 
       # 清理 + 初始化SDK，全部管道自动应答root确认
       - name: Silent clean & init SDK
