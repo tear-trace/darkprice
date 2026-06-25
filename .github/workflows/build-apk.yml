@@ -6,11 +6,10 @@ on:
 
 jobs:
   build-apk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
-      ACLOCAL_PATH: /usr/share/aclocal   # 保留以防其他组件需要
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
@@ -34,9 +33,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-v19-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          key: buildozer-v20-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
-      - name: Pre clone p4a and fix libffi
+      - name: Pre clone p4a and force hostpython3 version
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
@@ -45,10 +44,8 @@ jobs:
           fi
           cd "$P4A"
           pip install --no-cache-dir .
-          # 强制 hostpython3 版本
+          # 强制 hostpython3 recipe 使用 3.12.7
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
-          # 注释掉 libffi recipe 中的 autoreconf，避免 Ubuntu 24.04 的 autoconf 报错
-          sed -i "s/        shprint(sh.Command('autoreconf'), '-vif', _env=env)/        # shprint(sh.Command('autoreconf'), '-vif', _env=env)/" pythonforandroid/recipes/libffi/__init__.py
           # 删除已下载的 Python 源码包，强迫重新下载
           rm -rf ${{ github.workspace }}/.buildozer/android/platform/packages/Python-*
 
