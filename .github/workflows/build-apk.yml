@@ -7,6 +7,7 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-22.04
+    timeout-minutes: 90
     env:
       ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
@@ -33,7 +34,6 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          # 每个工作流运行使用独立缓存，避免污染
           key: buildozer-${{ github.run_id }}
 
       - name: Pre clone p4a and force hostpython3 version
@@ -45,16 +45,16 @@ jobs:
           fi
           cd "$P4A"
           pip install --no-cache-dir .
-          # 强制 hostpython3 recipe 使用 3.12.7
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
-          # 删除已下载的 Python 源码包，强迫重新下载
+          # 删除旧的 python 源码包，确保重新下载
           rm -rf ${{ github.workspace }}/.buildozer/android/platform/packages/Python-*
 
-      - name: Full clean and force rebuild
+      - name: Force rebuild python3
         run: |
           echo "y" | buildozer android clean
+          # 彻底删除 python3 的构建产物和标记
           rm -rf ./.buildozer/android/platform/build-*
-          # 删除所有 .built 标记文件，强制重新编译所有 recipe
+          rm -rf ./.buildozer/android/platform/build/other_builds/python3
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
 
       - name: Init SDK
