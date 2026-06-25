@@ -47,7 +47,7 @@ jobs:
           pip install --no-cache-dir .
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
 
-      - name: Full clean and force rebuild
+      - name: Full clean before build
         run: |
           echo "y" | buildozer android clean
           rm -rf ./.buildozer/android/platform/build-*
@@ -56,12 +56,15 @@ jobs:
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
           rm -rf ./.buildozer/android/platform/build/other_builds/python3
           rm -rf ./.buildozer/android/platform/build/other_builds/hostpython3
-
-      - name: Init SDK
-        run: echo "y" | buildozer android debug --no-interactive || true
+          rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
 
       - name: Build release APK
-        run: echo "y" | buildozer android release --no-interactive
+        run: |
+          # 再次确保清理，以防前一步有残留
+          find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
+          rm -rf ./.buildozer/android/platform/build/other_builds/python3
+          rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
+          echo "y" | buildozer android release --no-interactive
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
