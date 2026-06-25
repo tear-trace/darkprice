@@ -8,14 +8,14 @@ source.include_exts = py,png,json
 version = 1.0
 version.code = 1
 icon.filename = icon.png
-# 降级kivy到2.2.1，移除libthorvg依赖，解决IndexError崩溃
 requirements = python3,kivy==2.2.1,certifi,chardet,idna,urllib3,requests
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 orientation = portrait
 fullscreen = 0
 android.minapi = 21
 android.api = 33
-android.ndk = 25
+# 关键修改：ndk从25改为26b
+android.ndk = 26b
 android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
