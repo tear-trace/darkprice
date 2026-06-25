@@ -7,7 +7,6 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
-    # 不再使用 container，直接在宿主机运行
     env:
       ANDROID_HOME: /github/home/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
@@ -15,32 +14,26 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 设置 Python 3.12（关键）
       - name: Setup Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      # 安装系统依赖
       - name: Install system dependencies
         run: |
           sudo apt update
           sudo apt install -y \
             git zip unzip openjdk-17-jdk python3-pip \
             autoconf libtool pkg-config zlib1g-dev \
-            libncurses5-dev libncursesw5-dev libtinfo5 \
-            cmake libffi-dev libssl-dev
-          # 安装 Buildozer 和 Cython
+            libncurses-dev libffi-dev libssl-dev cmake
           pip install buildozer cython==0.29.33
 
-      # 缓存编译环境（保留）
       - name: Cache buildozer env
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-fix-thorvg-v14
+          key: buildozer-v15-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
-      # 预拉取 p4a
       - name: Pre clone p4a
         run: |
           mkdir -p ./.buildozer/android/platform
@@ -51,21 +44,17 @@ jobs:
           cd "$P4A"
           pip install --no-cache-dir .
 
-      # 清理旧构建缓存
       - name: Full clean build cache
         run: |
           echo "y" | buildozer android clean
           rm -rf ./.buildozer/android/platform/build-*
 
-      # 初始化 SDK（可选，也可直接 release）
       - name: Init SDK
         run: echo "y" | buildozer android debug --no-interactive || true
 
-      # 打包 Release
       - name: Build release APK
         run: echo "y" | buildozer android release --no-interactive
 
-      # 上传 APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
