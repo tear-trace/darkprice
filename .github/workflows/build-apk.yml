@@ -46,7 +46,7 @@ jobs:
           cd "$P4A"
           pip install --no-cache-dir .
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
-          # 删除旧的 python 源码包，确保重新下载
+          # 删除旧的 python 源码包
           rm -rf ${{ github.workspace }}/.buildozer/android/platform/packages/Python-*
 
       - name: Force rebuild python3
