@@ -10,6 +10,7 @@ jobs:
     env:
       ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
+      ACLOCAL_PATH: /usr/share/aclocal   # 解决 libtool 宏找不到的问题
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
@@ -32,7 +33,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-v17-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          key: buildozer-v18-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
       - name: Pre clone p4a and force hostpython3 version
         run: |
