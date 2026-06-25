@@ -12,7 +12,7 @@ requirements = python3==3.12.7,kivy==2.2.1,certifi,chardet,idna,urllib3,requests
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 orientation = portrait
 fullscreen = 0
-android.minapi = 23
+android.minapi = 24
 android.api = 33
 android.archs = arm64-v8a
 android.ndk = 25c
