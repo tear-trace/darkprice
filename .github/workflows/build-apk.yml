@@ -33,7 +33,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-v20-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          # 每个工作流运行使用独立缓存，避免污染
+          key: buildozer-${{ github.run_id }}
 
       - name: Pre clone p4a and force hostpython3 version
         run: |
@@ -49,10 +50,12 @@ jobs:
           # 删除已下载的 Python 源码包，强迫重新下载
           rm -rf ${{ github.workspace }}/.buildozer/android/platform/packages/Python-*
 
-      - name: Full clean build cache
+      - name: Full clean and force rebuild
         run: |
           echo "y" | buildozer android clean
           rm -rf ./.buildozer/android/platform/build-*
+          # 删除所有 .built 标记文件，强制重新编译所有 recipe
+          find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
 
       - name: Init SDK
         run: echo "y" | buildozer android debug --no-interactive || true
