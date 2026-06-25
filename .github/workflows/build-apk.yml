@@ -54,6 +54,8 @@ jobs:
           rm -rf ./.buildozer/android/platform/packages/Python-*
           rm -rf ./.buildozer/android/platform/packages/hostpython3
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
+          rm -rf ./.buildozer/android/platform/build/other_builds/python3
+          rm -rf ./.buildozer/android/platform/build/other_builds/hostpython3
 
       - name: Init SDK
         run: echo "y" | buildozer android debug --no-interactive || true

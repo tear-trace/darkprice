@@ -21,4 +21,3 @@ output_dir = bin
 debug = 0
 p4a.source_dir = ./.buildozer/android/platform/python-for-android
 android.accept_sdk_license = True
-p4a.force_build = True
