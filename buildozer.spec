@@ -9,7 +9,6 @@ version = 1.0
 version.code = 1
 icon.filename = icon.png
 requirements = python3==3.12.7,kivy==2.2.1,certifi,chardet,idna,urllib3,requests
-p4a.hostpython_version = 3.12.7
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 orientation = portrait
 fullscreen = 0
