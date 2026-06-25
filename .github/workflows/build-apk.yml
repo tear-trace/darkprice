@@ -36,7 +36,7 @@ jobs:
           path: ./.buildozer
           key: buildozer-${{ github.run_id }}
 
-      - name: Pre clone p4a and force hostpython3 version
+      - name: Pre clone p4a, force hostpython3 version and fix python3 grp module
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
@@ -45,7 +45,21 @@ jobs:
           fi
           cd "$P4A"
           pip install --no-cache-dir .
+          # 强制 hostpython3 recipe 使用 3.12.7
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
+          # 修复 python3 recipe: 禁用 grp 模块编译 (Android NDK 不支持)
+          python3 -c "
+          import re
+          path = 'pythonforandroid/recipes/python3/__init__.py'
+          with open(path, 'r') as f:
+              content = f.read()
+          content = content.replace(
+              'env = self.get_recipe_env(arch)',
+              \"env = self.get_recipe_env(arch)\n        env['ac_cv_func_setgrent'] = 'no'\n        env['ac_cv_func_getgrent'] = 'no'\n        env['ac_cv_func_endgrent'] = 'no'\"
+          )
+          with open(path, 'w') as f:
+              f.write(content)
+          "
 
       - name: Full clean before build
         run: |
@@ -60,7 +74,6 @@ jobs:
 
       - name: Build release APK
         run: |
-          # 再次确保清理，以防前一步有残留
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
           rm -rf ./.buildozer/android/platform/build/other_builds/python3
           rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
