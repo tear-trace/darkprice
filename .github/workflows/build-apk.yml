@@ -8,8 +8,9 @@ jobs:
   build-apk:
     runs-on: ubuntu-latest
     env:
-      ANDROID_HOME: /github/home/.buildozer/android/platform/android-sdk
+      ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
+      P4A_HOSTPYTHON_VERSION: "3.12.7"   # 关键：强制 hostpython 使用 3.12.7
     steps:
       - name: 检出仓库代码
         uses: actions/checkout@v4
@@ -32,7 +33,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.buildozer
-          key: buildozer-v15-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
+          key: buildozer-v16-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
       - name: Pre clone p4a
         run: |
@@ -53,7 +54,9 @@ jobs:
         run: echo "y" | buildozer android debug --no-interactive || true
 
       - name: Build release APK
-        run: echo "y" | buildozer android release --no-interactive
+        run: |
+          export P4A_HOSTPYTHON_VERSION=3.12.7
+          echo "y" | buildozer android release --no-interactive
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
