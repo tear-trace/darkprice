@@ -46,15 +46,13 @@ jobs:
           cd "$P4A"
           pip install --no-cache-dir .
           sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
-          # 删除旧的 python 源码包
-          rm -rf ${{ github.workspace }}/.buildozer/android/platform/packages/Python-*
 
-      - name: Force rebuild python3
+      - name: Full clean and force rebuild
         run: |
           echo "y" | buildozer android clean
-          # 彻底删除 python3 的构建产物和标记
           rm -rf ./.buildozer/android/platform/build-*
-          rm -rf ./.buildozer/android/platform/build/other_builds/python3
+          rm -rf ./.buildozer/android/platform/packages/Python-*
+          rm -rf ./.buildozer/android/platform/packages/hostpython3
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
 
       - name: Init SDK
