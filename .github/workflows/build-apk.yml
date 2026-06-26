@@ -6,29 +6,14 @@ on:
 
 jobs:
   build-apk:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 90
+    runs-on: ubuntu-latest
+    container: kivy/buildozer:latest
     env:
-      ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
+      ANDROID_HOME: /home/user/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
-
-      - name: 安装 Python 3.12（运行 Buildozer）
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
-
-      - name: 安装系统依赖
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            git zip unzip openjdk-17-jdk python3-pip \
-            autoconf libtool pkg-config zlib1g-dev \
-            libncurses-dev libffi-dev libssl-dev cmake \
-            autoconf-archive
-          pip install buildozer cython==0.29.33
 
       - name: 缓存 .buildozer
         uses: actions/cache@v3
@@ -36,7 +21,7 @@ jobs:
           path: ./.buildozer
           key: buildozer-${{ github.run_id }}
 
-      - name: 克隆 p4a（不修改任何 recipe）
+      - name: 克隆 p4a
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
@@ -46,15 +31,11 @@ jobs:
           cd "$P4A"
           pip install --no-cache-dir .
 
-      - name: 彻底清理并构建 release APK
+      - name: 清理并构建 release APK
         run: |
           echo "y" | buildozer android clean
           rm -rf ./.buildozer/android/platform/build-*
-          rm -rf ./.buildozer/android/platform/packages/Python-*
-          rm -rf ./.buildozer/android/platform/packages/hostpython3
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
-          rm -rf ./.buildozer/android/platform/build/other_builds/python3
-          rm -rf ./.buildozer/android/platform/build/other_builds/hostpython3
           rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
           echo "y" | buildozer android release --no-interactive
 
