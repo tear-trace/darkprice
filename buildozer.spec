@@ -19,7 +19,4 @@ android.ndk = 25c
 android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
-p4a.source_dir = ./.buildozer/android/platform/python-for-android
-p4a.python_version = 3.11
-p4a.force_build = False
 android.accept_sdk_license = True

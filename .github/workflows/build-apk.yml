@@ -21,16 +21,6 @@ jobs:
           path: ./.buildozer
           key: buildozer-${{ github.run_id }}
 
-      - name: 克隆 p4a
-        run: |
-          mkdir -p ./.buildozer/android/platform
-          P4A=./.buildozer/android/platform/python-for-android
-          if [ ! -d "$P4A" ]; then
-            git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
-          fi
-          cd "$P4A"
-          pip install --no-cache-dir .
-
       - name: 清理并构建 release APK
         run: |
           echo "y" | buildozer android clean
