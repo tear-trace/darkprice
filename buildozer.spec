@@ -8,7 +8,7 @@ source.include_exts = py,png,json
 version = 1.0
 version.code = 1
 icon.filename = icon.png
-requirements = python3==3.10.13,kivy==2.2.1,certifi,chardet,idna,urllib3,requests
+requirements = python3,kivy==2.2.1,certifi,chardet,idna,urllib3,requests
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 orientation = portrait
 fullscreen = 0
@@ -20,4 +20,5 @@ android.build_tools = "33.0.2"
 output_dir = bin
 debug = 0
 p4a.source_dir = ./.buildozer/android/platform/python-for-android
+p4a.python_version = 3.11
 android.accept_sdk_license = True
