@@ -15,9 +15,8 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 清理并构建 release APK
+      - name: 构建 release APK（Buildozer 会自动下载 p4a）
         run: |
-          echo "y" | buildozer android clean
           echo "y" | buildozer android release --no-interactive
 
       - name: 上传 APK
