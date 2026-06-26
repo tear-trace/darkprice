@@ -15,12 +15,12 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      - name: Setup Python 3.12
+      - name: Setup Python 3.12 (用于运行 buildozer)
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      - name: Install system dependencies
+      - name: 安装系统依赖
         run: |
           sudo apt update
           sudo apt install -y \
@@ -30,13 +30,13 @@ jobs:
             autoconf-archive
           pip install buildozer cython==0.29.33
 
-      - name: Cache buildozer env
+      - name: 缓存 .buildozer 目录
         uses: actions/cache@v3
         with:
           path: ./.buildozer
           key: buildozer-${{ github.run_id }}
 
-      - name: Pre clone p4a and force hostpython3 version
+      - name: 克隆 p4a 并强制 hostpython3 版本为 3.11.10
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
@@ -45,9 +45,9 @@ jobs:
           fi
           cd "$P4A"
           pip install --no-cache-dir .
-          sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
+          sed -i 's/version = ".*"/version = "3.11.10"/g' pythonforandroid/recipes/hostpython3/__init__.py
 
-      - name: Full clean before build
+      - name: 彻底清理旧的构建产物
         run: |
           echo "y" | buildozer android clean
           rm -rf ./.buildozer/android/platform/build-*
@@ -58,14 +58,14 @@ jobs:
           rm -rf ./.buildozer/android/platform/build/other_builds/hostpython3
           rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
 
-      - name: Build release APK
+      - name: 构建 release APK
         run: |
           find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
           rm -rf ./.buildozer/android/platform/build/other_builds/python3
           rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
           echo "y" | buildozer android release --no-interactive
 
-      - name: Upload APK
+      - name: 上传 APK
         uses: actions/upload-artifact@v4
         with:
           name: DarkPrice-APK
