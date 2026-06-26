@@ -15,7 +15,7 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      - name: Setup Python 3.12 (用于运行 buildozer)
+      - name: 安装 Python 3.12（用于运行 Buildozer）
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
@@ -36,7 +36,7 @@ jobs:
           path: ./.buildozer
           key: buildozer-${{ github.run_id }}
 
-      - name: 克隆 p4a 并强制 hostpython3 版本为 3.11.10
+      - name: 克隆 p4a 并强制 hostpython3 版本为 3.10.13，禁用 grp 模块
         run: |
           mkdir -p ./.buildozer/android/platform
           P4A=./.buildozer/android/platform/python-for-android
@@ -45,7 +45,21 @@ jobs:
           fi
           cd "$P4A"
           pip install --no-cache-dir .
-          sed -i 's/version = ".*"/version = "3.11.10"/g' pythonforandroid/recipes/hostpython3/__init__.py
+          # 强制 hostpython3 版本
+          sed -i 's/version = ".*"/version = "3.10.13"/g' pythonforandroid/recipes/hostpython3/__init__.py
+          # 修改 python3 recipe，禁用 grp 模块编译
+          python3 -c "
+          import re
+          path = 'pythonforandroid/recipes/python3/__init__.py'
+          with open(path, 'r') as f:
+              content = f.read()
+          content = content.replace(
+              'env = self.get_recipe_env(arch)',
+              'env = self.get_recipe_env(arch)\n        env[\"py_cv_module_grp\"] = \"n/a\"'
+          )
+          with open(path, 'w') as f:
+              f.write(content)
+          "
 
       - name: 彻底清理旧的构建产物
         run: |
