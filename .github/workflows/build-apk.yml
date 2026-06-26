@@ -6,17 +6,67 @@ on:
 
 jobs:
   build-apk:
-    runs-on: ubuntu-latest
-    container: kivy/buildozer:latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
     env:
-      ANDROID_HOME: /home/user/.buildozer/android/platform/android-sdk
+      ANDROID_HOME: /home/runner/.buildozer/android/platform/android-sdk
       BUILDOZER_ROOT_WARNING: "yes"
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 构建 release APK（Buildozer 会自动下载 p4a）
+      - name: 安装 Python 3.12（运行 Buildozer 并作为 hostpython）
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: 安装系统依赖
         run: |
+          sudo apt update
+          sudo apt install -y \
+            git zip unzip openjdk-17-jdk python3-pip \
+            autoconf libtool pkg-config zlib1g-dev \
+            libncurses-dev libffi-dev libssl-dev cmake \
+            autoconf-archive
+          pip install buildozer cython==0.29.33
+
+      - name: 缓存 .buildozer
+        uses: actions/cache@v3
+        with:
+          path: ./.buildozer
+          key: buildozer-${{ github.run_id }}
+
+      - name: 克隆 p4a 并修复 recipe（禁用 grp 模块，强制 hostpython 3.12.7）
+        run: |
+          mkdir -p ./.buildozer/android/platform
+          P4A=./.buildozer/android/platform/python-for-android
+          if [ ! -d "$P4A" ]; then
+            git clone --depth 1 https://github.com/kivy/python-for-android.git "$P4A"
+          fi
+          cd "$P4A"
+          pip install --no-cache-dir .
+          # 强制 hostpython3 版本为 3.12.7
+          sed -i 's/version = ".*"/version = "3.12.7"/g' pythonforandroid/recipes/hostpython3/__init__.py
+          # 修改 python3 recipe：禁用 grp 模块编译
+          python3 -c "
+          with open('pythonforandroid/recipes/python3/__init__.py', 'r') as f:
+              content = f.read()
+          content = content.replace(
+              'env = self.get_recipe_env(arch)',
+              'env = self.get_recipe_env(arch)\n        env[\"py_cv_module_grp\"] = \"n/a\"'
+          )
+          with open('pythonforandroid/recipes/python3/__init__.py', 'w') as f:
+              f.write(content)
+          "
+
+      - name: 彻底清理并构建 release APK
+        run: |
+          echo "y" | buildozer android clean
+          rm -rf ./.buildozer/android/platform/build-*
+          find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
+          rm -rf ./.buildozer/android/platform/build/other_builds/python3
+          rm -rf ./.buildozer/android/platform/build/other_builds/hostpython3
+          rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
           echo "y" | buildozer android release --no-interactive
 
       - name: 上传 APK
