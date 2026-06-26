@@ -15,18 +15,9 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 缓存 .buildozer
-        uses: actions/cache@v3
-        with:
-          path: ./.buildozer
-          key: buildozer-${{ github.run_id }}
-
       - name: 清理并构建 release APK
         run: |
           echo "y" | buildozer android clean
-          rm -rf ./.buildozer/android/platform/build-*
-          find ./.buildozer/android/platform -name ".built" -delete 2>/dev/null || true
-          rm -rf ./.buildozer/android/platform/build-arm64-v8a/dists/darkprice
           echo "y" | buildozer android release --no-interactive
 
       - name: 上传 APK
