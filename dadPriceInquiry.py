@@ -32,13 +32,15 @@ GITHUB_PRICE_URL = "https://raw.githubusercontent.com/tear-trace/darkprice/main/
 CACHE_EXPIRE_SEC = 1800
 TIMEOUT = 12
 
-# Kivy高分屏配置
-os.environ["KIVY_METRICS_DENSITY"] = "1"
-os.environ["KIVY_NO_ARGS"] = "1"
+# 强制全屏（解决窗口偏移问题）
+from kivy.config import Config
+Config.set('graphics', 'fullscreen', 'auto')
+Config.set('graphics', 'resizable', '0')
+Config.set('kivy', 'window_icon', '')
+Config.set('graphics', 'orientation', 'portrait')
 
 import requests
 from kivy.core.text import LabelBase
-from kivy.config import Config
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -54,25 +56,34 @@ from kivy.graphics import Color, RoundedRectangle
 # ====================== 字体兼容（纯系统自带，无外部ttc） ======================
 FONT_NAME = "sys_cn"
 font_ok = False
+
+# 尝试多种系统字体路径
+font_paths = []
 if ANDROID:
-    try:
-        LabelBase.register(name=FONT_NAME, fn_regular="/system/fonts/Roboto-Regular.ttf")
-        font_ok = True
-    except Exception:
-        pass
+    font_paths = [
+        "/system/fonts/NotoSansCJK-Regular.ttc",
+        "/system/fonts/DroidSansFallback.ttf",
+        "/system/fonts/Roboto-Regular.ttf",
+    ]
 else:
+    font_paths = [
+        r"C:/Windows/Fonts/msyh.ttc",
+        r"C:/Windows/Fonts/simsun.ttc",
+    ]
+
+for path in font_paths:
     try:
-        LabelBase.register(name=FONT_NAME, fn_regular=r"C:/Windows/Fonts/msyh.ttc")
+        LabelBase.register(name=FONT_NAME, fn_regular=path)
         font_ok = True
+        break
     except Exception:
-        pass
+        continue
 
 if not font_ok:
+    # 最后的备选：使用 Kivy 内置的 Roboto 字体（无法显示中文）
     FONT_NAME = "Roboto"
 
 Config.set('kivy', 'default_font', [FONT_NAME, "", "", ""])
-Config.set('graphics', 'orientation', 'portrait')
-Config.set('graphics', 'resizable', '0')
 Window.softinput_mode = "below_target"
 
 # ========== 网络工具：从GitHub拉取完整价格文件 ==========
@@ -366,8 +377,8 @@ class MainBox(BoxLayout):
 # ========== APP入口 ==========
 class DarkPriceApp(App):
     def build(self):
-        Window.size = (dp(380), dp(760))
         self.title = "战利品市场价格查询"
+        # 不再手动设置 Window.size，全屏自动适配
         return MainBox()
 
 if __name__ == "__main__":
