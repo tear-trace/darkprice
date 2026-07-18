@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-17 04:16:58",
+  "update_time": "2026-07-18 04:09:57",
   "valid_hour": 0,
   "price_list": [
     {
@@ -21,6 +21,21 @@
       "id": "FrostWyvernEgg",
       "name": "冰霜飞龙蛋",
       "price": 100000
+    },
+    {
+      "id": "ShiningPearl",
+      "name": "璀璨珍珠",
+      "price": 99999
+    },
+    {
+      "id": "YetisTeeth",
+      "name": "雪猿獠牙",
+      "price": 97876
+    },
+    {
+      "id": "BrandoftheSubservient",
+      "name": "臣服烙印",
+      "price": 80000
     },
     {
       "id": "NavigationalCompass",
@@ -55,12 +70,7 @@
     {
       "id": "MysteriousPotion",
       "name": "神秘药剂",
-      "price": 40000
-    },
-    {
-      "id": "CapturedManaFlakes",
-      "name": "捕获魔力微粒",
-      "price": 31000
+      "price": 39900
     },
     {
       "id": "Starfish",
@@ -123,11 +133,6 @@
       "price": 9999
     },
     {
-      "id": "ShiningPearl",
-      "name": "璀璨珍珠",
-      "price": 9999
-    },
-    {
       "id": "AncientStingrayEgg",
       "name": "远古鳐鱼卵",
       "price": 9859
@@ -145,7 +150,7 @@
     {
       "id": "SealofDominion",
       "name": "统御纹章",
-      "price": 6555
+      "price": 6800
     },
     {
       "id": "TearoftheVolcano",
@@ -153,24 +158,9 @@
       "price": 5200
     },
     {
-      "id": "Ectoplasm",
-      "name": "灵质黏液",
-      "price": 4999
-    },
-    {
       "id": "VolcanicAsh",
       "name": "火山灰",
       "price": 4888
-    },
-    {
-      "id": "CaveTrollsPreciousRock",
-      "name": "洞穴巨魔珍藏的石头",
-      "price": 3980
-    },
-    {
-      "id": "YetisTeeth",
-      "name": "雪猿獠牙",
-      "price": 3900
     },
     {
       "id": "BlueThreadSpool",
@@ -188,11 +178,6 @@
       "price": 2500
     },
     {
-      "id": "ArcaneEssence",
-      "name": "奥术精华",
-      "price": 2222
-    },
-    {
       "id": "Pincushion",
       "name": "针垫",
       "price": 2222
@@ -205,22 +190,17 @@
     {
       "id": "CyclopsPreciousMirror",
       "name": "独眼巨人珍藏镜子",
-      "price": 1700
+      "price": 1500
     },
     {
-      "id": "CyclopsEye",
-      "name": "独眼巨人眼球",
-      "price": 1400
+      "id": "Ectoplasm",
+      "name": "灵质黏液",
+      "price": 1500
     },
     {
       "id": "SharpSeaUrchinSpine",
       "name": "海胆尖刺",
       "price": 1200
-    },
-    {
-      "id": "BrokenGlasses",
-      "name": "碎眼镜",
-      "price": 1111
     },
     {
       "id": "HardCrabShell",
@@ -233,8 +213,8 @@
       "price": 1049
     },
     {
-      "id": "MimicTooth",
-      "name": "拟态怪牙齿",
+      "id": "CyclopsEye",
+      "name": "独眼巨人眼球",
       "price": 1000
     },
     {
@@ -248,11 +228,6 @@
       "price": 950
     },
     {
-      "id": "GhostlyEssence",
-      "name": "幽魂精华",
-      "price": 900
-    },
-    {
       "id": "HellHuntersCurvedBlade",
       "name": "地狱猎手弯刀",
       "price": 888
@@ -261,11 +236,6 @@
       "id": "BansheeSonnet",
       "name": "狺女的十四行诗",
       "price": 885
-    },
-    {
-      "id": "DogCollar",
-      "name": "狗项圈",
-      "price": 870
     },
     {
       "id": "FrostWyvernClaws",
@@ -333,6 +303,11 @@
       "price": 700
     },
     {
+      "id": "BonePowder",
+      "name": "骨粉",
+      "price": 699
+    },
+    {
       "id": "HerbPouch",
       "name": "草药布袋",
       "price": 699
@@ -348,11 +323,6 @@
       "price": 666
     },
     {
-      "id": "DiaryoftheToz",
-      "name": "托兹日记",
-      "price": 650
-    },
-    {
       "id": "GlowingOrangeEye",
       "name": "橙光眼球",
       "price": 650
@@ -363,14 +333,19 @@
       "price": 650
     },
     {
-      "id": "CyclopsRags",
-      "name": "独眼巨人破布",
-      "price": 550
+      "id": "MimicTooth",
+      "name": "拟态怪牙齿",
+      "price": 600
     },
     {
       "id": "WendigosEntrails",
       "name": "温迪戈内脏",
       "price": 550
+    },
+    {
+      "id": "CyclopsRags",
+      "name": "独眼巨人破布",
+      "price": 540
     },
     {
       "id": "TrollPelt",
@@ -380,11 +355,6 @@
     {
       "id": "CrackedTusk",
       "name": "裂纹獠牙",
-      "price": 500
-    },
-    {
-      "id": "CursedCrown",
-      "name": "诅咒王冠",
       "price": 500
     },
     {
@@ -398,11 +368,6 @@
       "price": 500
     },
     {
-      "id": "ThickForefoot",
-      "name": "厚实前蹄",
-      "price": 499
-    },
-    {
       "id": "ChroniclesoftheCursedCrown",
       "name": "诅咒王冠编年史",
       "price": 498
@@ -411,11 +376,6 @@
       "id": "BrokenJarShard",
       "name": "陶罐碎片",
       "price": 487
-    },
-    {
-      "id": "BonePowder",
-      "name": "骨粉",
-      "price": 450
     },
     {
       "id": "BlackThreadSpool",
@@ -433,6 +393,11 @@
       "price": 444
     },
     {
+      "id": "ArmorScrap",
+      "name": "盔甲碎片",
+      "price": 400
+    },
+    {
       "id": "BlacksmithTongs",
       "name": "铁匠钳",
       "price": 400
@@ -440,6 +405,11 @@
     {
       "id": "EnchantedDarkFabric",
       "name": "附魔的黑暗布料",
+      "price": 400
+    },
+    {
+      "id": "IntactSkull",
+      "name": "完整头骨",
       "price": 400
     },
     {
@@ -503,6 +473,16 @@
       "price": 300
     },
     {
+      "id": "CaveTrollsPreciousRock",
+      "name": "洞穴巨魔珍藏的石头",
+      "price": 298
+    },
+    {
+      "id": "DiaryoftheToz",
+      "name": "托兹日记",
+      "price": 298
+    },
+    {
       "id": "GiantBatHide",
       "name": "巨型蝙蝠皮",
       "price": 295
@@ -511,11 +491,6 @@
       "id": "Brimstone",
       "name": "硫磺",
       "price": 290
-    },
-    {
-      "id": "HumanRemains",
-      "name": "类人遗骸",
-      "price": 280
     },
     {
       "id": "Shackles",
@@ -551,6 +526,11 @@
       "id": "GlowingBlueIceEyes",
       "name": "冰蓝发光眼球",
       "price": 240
+    },
+    {
+      "id": "DogCollar",
+      "name": "狗项圈",
+      "price": 234
     },
     {
       "id": "ArmillarySphere",
@@ -618,11 +598,6 @@
       "price": 198
     },
     {
-      "id": "DoctorsBag",
-      "name": "医师皮包",
-      "price": 190
-    },
-    {
       "id": "OldBloodyBandage",
       "name": "老旧染血绷带",
       "price": 188
@@ -646,6 +621,11 @@
       "id": "SealedLetter",
       "name": "密封信件",
       "price": 179
+    },
+    {
+      "id": "DoctorsBag",
+      "name": "医师皮包",
+      "price": 177
     },
     {
       "id": "BlueEyeballs",
@@ -763,6 +743,11 @@
       "price": 100
     },
     {
+      "id": "ArcaneEssence",
+      "name": "奥术精华",
+      "price": 99
+    },
+    {
       "id": "Bone",
       "name": "骨头",
       "price": 99
@@ -823,11 +808,6 @@
       "price": 70
     },
     {
-      "id": "MoldyBread",
-      "name": "发霉面包",
-      "price": 70
-    },
-    {
       "id": "Tripod",
       "name": "三脚支架",
       "price": 70
@@ -863,11 +843,6 @@
       "price": 65
     },
     {
-      "id": "IntactSkull",
-      "name": "完整头骨",
-      "price": 63
-    },
-    {
       "id": "Telescope",
       "name": "望远镜",
       "price": 60
@@ -880,11 +855,6 @@
     {
       "id": "BatClaw",
       "name": "蝙蝠爪",
-      "price": 50
-    },
-    {
-      "id": "CrocodilianEyeball",
-      "name": "鳄鱼眼球",
       "price": 50
     },
     {
@@ -908,9 +878,9 @@
       "price": 50
     },
     {
-      "id": "DemonBlood",
-      "name": "恶魔血液",
-      "price": 48
+      "id": "CrocodilianEyeball",
+      "name": "鳄鱼眼球",
+      "price": 49
     },
     {
       "id": "TongueOfMimic",
@@ -921,6 +891,11 @@
       "id": "WhiteSharkTooth",
       "name": "白鲨牙齿",
       "price": 48
+    },
+    {
+      "id": "Bellows",
+      "name": "风箱",
+      "price": 45
     },
     {
       "id": "Eyepatch",
@@ -963,11 +938,6 @@
       "price": 30
     },
     {
-      "id": "GoldenTeeth",
-      "name": "金牙",
-      "price": 25
-    },
-    {
       "id": "SearedHide",
       "name": "炙烤兽皮",
       "price": 20
@@ -1003,18 +973,23 @@
       "price": 15
     },
     {
-      "id": "Bellows",
-      "name": "风箱",
-      "price": 11
-    },
-    {
-      "id": "ArmorScrap",
-      "name": "盔甲碎片",
+      "id": "BrokenGlasses",
+      "name": "碎眼镜",
       "price": 1
     },
     {
-      "id": "BrandoftheSubservient",
-      "name": "臣服烙印",
+      "id": "CapturedManaFlakes",
+      "name": "捕获魔力微粒",
+      "price": 1
+    },
+    {
+      "id": "CursedCrown",
+      "name": "诅咒王冠",
+      "price": 1
+    },
+    {
+      "id": "DemonBlood",
+      "name": "恶魔血液",
       "price": 1
     },
     {
@@ -1033,8 +1008,28 @@
       "price": 1
     },
     {
+      "id": "GhostlyEssence",
+      "name": "幽魂精华",
+      "price": 1
+    },
+    {
+      "id": "GoldenTeeth",
+      "name": "金牙",
+      "price": 1
+    },
+    {
       "id": "Hourglass",
       "name": "沙漏",
+      "price": 1
+    },
+    {
+      "id": "HumanRemains",
+      "name": "类人遗骸",
+      "price": 1
+    },
+    {
+      "id": "MoldyBread",
+      "name": "发霉面包",
       "price": 1
     },
     {
@@ -1045,6 +1040,11 @@
     {
       "id": "SmokyPoisonPowder",
       "name": "毒烟粉末",
+      "price": 1
+    },
+    {
+      "id": "ThickForefoot",
+      "name": "厚实前蹄",
       "price": 1
     },
     {
