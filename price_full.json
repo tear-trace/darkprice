@@ -1,12 +1,7 @@
 {
-  "update_time": "2026-07-24 04:25:34",
+  "update_time": "2026-07-25 04:22:07",
   "valid_hour": 0,
   "price_list": [
-    {
-      "id": "ChocolateChipMuffin",
-      "name": "巧克力玛芬蛋糕",
-      "price": 100000
-    },
     {
       "id": "CrownoftheMidnightStag",
       "name": "午夜雄鹿王冠",
@@ -1061,6 +1056,10 @@
     {
       "id": "CharredFang",
       "name": "焦黑獠牙"
+    },
+    {
+      "id": "ChocolateChipMuffin",
+      "name": "巧克力玛芬蛋糕"
     },
     {
       "id": "Coal",
