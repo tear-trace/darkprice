@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-25 04:22:07",
+  "update_time": "2026-07-26 04:36:58",
   "valid_hour": 0,
   "price_list": [
     {
@@ -56,11 +56,6 @@
       "id": "LukewarmStew",
       "name": "温炖肉汤",
       "price": 50000
-    },
-    {
-      "id": "MidnightStagDisplay",
-      "name": "午夜雄鹿头颅标本",
-      "price": 48888
     },
     {
       "id": "MysteriousPotion",
@@ -793,11 +788,6 @@
       "price": 75
     },
     {
-      "id": "BronzeLadle",
-      "name": "铜勺",
-      "price": 70
-    },
-    {
       "id": "Tripod",
       "name": "三脚支架",
       "price": 70
@@ -1050,6 +1040,10 @@
   ],
   "no_stock_list": [
     {
+      "id": "BronzeLadle",
+      "name": "铜勺"
+    },
+    {
       "id": "Broom",
       "name": "扫帚"
     },
@@ -1076,6 +1070,10 @@
     {
       "id": "InkwellandQuillPen",
       "name": "墨水瓶与羽毛笔"
+    },
+    {
+      "id": "MidnightStagDisplay",
+      "name": "午夜雄鹿头颅标本"
     },
     {
       "id": "Pebble",
