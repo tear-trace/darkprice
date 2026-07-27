@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-26 04:36:58",
+  "update_time": "2026-07-27 04:48:55",
   "valid_hour": 0,
   "price_list": [
     {
@@ -563,11 +563,6 @@
       "price": 200
     },
     {
-      "id": "WoodenStick",
-      "name": "木棍",
-      "price": 200
-    },
-    {
       "id": "FrozenClaw",
       "name": "冰封利爪",
       "price": 199
@@ -683,11 +678,6 @@
       "price": 111
     },
     {
-      "id": "Horseshoe",
-      "name": "马蹄铁",
-      "price": 111
-    },
-    {
       "id": "BlemishedPearl",
       "name": "瑕疵珍珠",
       "price": 100
@@ -783,11 +773,6 @@
       "price": 80
     },
     {
-      "id": "TracingWheel",
-      "name": "描线轮",
-      "price": 75
-    },
-    {
       "id": "Tripod",
       "name": "三脚支架",
       "price": 70
@@ -875,11 +860,6 @@
     {
       "id": "Bellows",
       "name": "风箱",
-      "price": 45
-    },
-    {
-      "id": "Eyepatch",
-      "name": "眼罩",
       "price": 45
     },
     {
@@ -1068,6 +1048,14 @@
       "name": "诅咒绷带"
     },
     {
+      "id": "Eyepatch",
+      "name": "眼罩"
+    },
+    {
+      "id": "Horseshoe",
+      "name": "马蹄铁"
+    },
+    {
       "id": "InkwellandQuillPen",
       "name": "墨水瓶与羽毛笔"
     },
@@ -1096,12 +1084,20 @@
       "name": "硫磺唾液"
     },
     {
+      "id": "TracingWheel",
+      "name": "描线轮"
+    },
+    {
       "id": "Twig",
       "name": "细树枝"
     },
     {
       "id": "WantedPoster",
       "name": "悬赏告示"
+    },
+    {
+      "id": "WoodenStick",
+      "name": "木棍"
     }
   ]
 }
