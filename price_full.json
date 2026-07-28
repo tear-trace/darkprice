@@ -1,5 +1,5 @@
 {
-  "update_time": "2026-07-27 04:48:55",
+  "update_time": "2026-07-28 04:20:21",
   "valid_hour": 0,
   "price_list": [
     {
@@ -413,11 +413,6 @@
       "price": 388
     },
     {
-      "id": "Paperweight",
-      "name": "镇纸",
-      "price": 377
-    },
-    {
       "id": "CockatriceEgg",
       "name": "蛇尾鸡蛋",
       "price": 350
@@ -713,11 +708,6 @@
       "price": 100
     },
     {
-      "id": "WarHorn",
-      "name": "战号",
-      "price": 100
-    },
-    {
       "id": "ArcaneEssence",
       "name": "奥术精华",
       "price": 99
@@ -791,11 +781,6 @@
       "id": "PrimitiveBracelet",
       "name": "原始手环",
       "price": 69
-    },
-    {
-      "id": "WhiteThreadSpool",
-      "name": "白色线轴",
-      "price": 67
     },
     {
       "id": "MermaidScale",
@@ -1064,6 +1049,10 @@
       "name": "午夜雄鹿头颅标本"
     },
     {
+      "id": "Paperweight",
+      "name": "镇纸"
+    },
+    {
       "id": "Pebble",
       "name": "鹅卵石"
     },
@@ -1094,6 +1083,14 @@
     {
       "id": "WantedPoster",
       "name": "悬赏告示"
+    },
+    {
+      "id": "WarHorn",
+      "name": "战号"
+    },
+    {
+      "id": "WhiteThreadSpool",
+      "name": "白色线轴"
     },
     {
       "id": "WoodenStick",
