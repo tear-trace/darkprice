@@ -1,12 +1,7 @@
 {
-  "update_time": "2026-07-28 04:20:21",
+  "update_time": "2026-07-29 04:24:04",
   "valid_hour": 0,
   "price_list": [
-    {
-      "id": "CrownoftheMidnightStag",
-      "name": "午夜雄鹿王冠",
-      "price": 100000
-    },
     {
       "id": "EtchedWandFragment",
       "name": "蚀刻法杖残片",
@@ -126,11 +121,6 @@
       "id": "AncientStingrayEgg",
       "name": "远古鳐鱼卵",
       "price": 9859
-    },
-    {
-      "id": "IntricateWoodenFigurine",
-      "name": "精致木雕人偶",
-      "price": 8888
     },
     {
       "id": "KneadBloodBag",
@@ -368,11 +358,6 @@
       "price": 487
     },
     {
-      "id": "BlackThreadSpool",
-      "name": "黑线线轴",
-      "price": 444
-    },
-    {
       "id": "BrokenBoneSpike",
       "name": "断骨刺",
       "price": 444
@@ -385,11 +370,6 @@
     {
       "id": "ArmorScrap",
       "name": "盔甲碎片",
-      "price": 400
-    },
-    {
-      "id": "BlacksmithTongs",
-      "name": "铁匠钳",
       "price": 400
     },
     {
@@ -420,11 +400,6 @@
     {
       "id": "DemonWingMembrane",
       "name": "恶魔翼膜",
-      "price": 350
-    },
-    {
-      "id": "FabricShears",
-      "name": "布料剪刀",
       "price": 350
     },
     {
@@ -521,11 +496,6 @@
       "id": "ArmillarySphere",
       "name": "浑天仪",
       "price": 230
-    },
-    {
-      "id": "Charcoal",
-      "name": "木炭",
-      "price": 222
     },
     {
       "id": "FrozenHeart",
@@ -768,11 +738,6 @@
       "price": 70
     },
     {
-      "id": "YellowThreadSpool",
-      "name": "黄色线轴",
-      "price": 70
-    },
-    {
       "id": "GiantToe",
       "name": "巨型脚趾",
       "price": 69
@@ -871,11 +836,6 @@
       "id": "RustyBrokenSword",
       "name": "锈蚀断剑",
       "price": 34
-    },
-    {
-      "id": "ConchShell",
-      "name": "海螺壳",
-      "price": 30
     },
     {
       "id": "Lock",
@@ -1005,12 +965,24 @@
   ],
   "no_stock_list": [
     {
+      "id": "BlackThreadSpool",
+      "name": "黑线线轴"
+    },
+    {
+      "id": "BlacksmithTongs",
+      "name": "铁匠钳"
+    },
+    {
       "id": "BronzeLadle",
       "name": "铜勺"
     },
     {
       "id": "Broom",
       "name": "扫帚"
+    },
+    {
+      "id": "Charcoal",
+      "name": "木炭"
     },
     {
       "id": "CharredFang",
@@ -1025,8 +997,16 @@
       "name": "煤炭"
     },
     {
+      "id": "ConchShell",
+      "name": "海螺壳"
+    },
+    {
       "id": "CorruptedHeart",
       "name": "腐化心脏"
+    },
+    {
+      "id": "CrownoftheMidnightStag",
+      "name": "午夜雄鹿王冠"
     },
     {
       "id": "CursedBandage",
@@ -1037,12 +1017,20 @@
       "name": "眼罩"
     },
     {
+      "id": "FabricShears",
+      "name": "布料剪刀"
+    },
+    {
       "id": "Horseshoe",
       "name": "马蹄铁"
     },
     {
       "id": "InkwellandQuillPen",
       "name": "墨水瓶与羽毛笔"
+    },
+    {
+      "id": "IntricateWoodenFigurine",
+      "name": "精致木雕人偶"
     },
     {
       "id": "MidnightStagDisplay",
@@ -1095,6 +1083,10 @@
     {
       "id": "WoodenStick",
       "name": "木棍"
+    },
+    {
+      "id": "YellowThreadSpool",
+      "name": "黄色线轴"
     }
   ]
 }
