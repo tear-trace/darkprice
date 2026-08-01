@@ -1,43 +1,7 @@
 {
-  "update_time": "2026-07-31 04:36:43",
+  "update_time": "2026-08-01 04:31:23",
   "valid_hour": 0,
-  "price_list": [
-    {
-      "id": "ShiningPearl",
-      "name": "璀璨珍珠",
-      "price": 99999
-    },
-    {
-      "id": "DogCollar",
-      "name": "狗项圈",
-      "price": 234
-    },
-    {
-      "id": "FrozenHeart",
-      "name": "冰封心脏",
-      "price": 200
-    },
-    {
-      "id": "ArcaneEssence",
-      "name": "奥术精华",
-      "price": 99
-    },
-    {
-      "id": "Bellows",
-      "name": "风箱",
-      "price": 45
-    },
-    {
-      "id": "BrokenGlasses",
-      "name": "碎眼镜",
-      "price": 1
-    },
-    {
-      "id": "DemonBlood",
-      "name": "恶魔血液",
-      "price": 1
-    }
-  ],
+  "price_list": [],
   "no_stock_list": [
     {
       "id": "Anchor",
@@ -46,6 +10,10 @@
     {
       "id": "AncientStingrayEgg",
       "name": "远古鳐鱼卵"
+    },
+    {
+      "id": "ArcaneEssence",
+      "name": "奥术精华"
     },
     {
       "id": "ArmillarySphere",
@@ -82,6 +50,10 @@
     {
       "id": "BeetleWings",
       "name": "甲虫翅膀"
+    },
+    {
+      "id": "Bellows",
+      "name": "风箱"
     },
     {
       "id": "Birdcage",
@@ -138,6 +110,10 @@
     {
       "id": "BrokenFrame",
       "name": "破损木框"
+    },
+    {
+      "id": "BrokenGlasses",
+      "name": "碎眼镜"
     },
     {
       "id": "BrokenJarShard",
@@ -288,6 +264,10 @@
       "name": "暗物质"
     },
     {
+      "id": "DemonBlood",
+      "name": "恶魔血液"
+    },
+    {
       "id": "DemonDogThorns",
       "name": "魔犬荆棘"
     },
@@ -302,6 +282,10 @@
     {
       "id": "DoctorsBag",
       "name": "医师皮包"
+    },
+    {
+      "id": "DogCollar",
+      "name": "狗项圈"
     },
     {
       "id": "Ectoplasm",
@@ -362,6 +346,10 @@
     {
       "id": "FrozenClaw",
       "name": "冰封利爪"
+    },
+    {
+      "id": "FrozenHeart",
+      "name": "冰封心脏"
     },
     {
       "id": "GhostlyEssence",
@@ -646,6 +634,10 @@
     {
       "id": "SharpSeaUrchinSpine",
       "name": "海胆尖刺"
+    },
+    {
+      "id": "ShiningPearl",
+      "name": "璀璨珍珠"
     },
     {
       "id": "ShipsWheel",
